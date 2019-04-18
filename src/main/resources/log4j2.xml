@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="WARN">
+    <!--全局参数-->
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Property>
+        <property name="LOG_HOME">D:/logs</property>
+        <property name="FILE_NAME">mylog</property>
+    </Properties>
+    <Loggers>
+        <Root level="info">
+            <!--
+            <AppenderRef ref="console"></AppenderRef>
+            -->
+            <AppenderRef ref="RollingRandomAccessFile"></AppenderRef>
+        </Root>
+
+    </Loggers>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <!--控制台只输出level及以上级别的信息-->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${pattern}</Pattern>
+            </PatternLayout>
+        </Console>
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${LOG_HOME}/${FILE_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1 KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+
+    </Appenders>
+</configuration>

@@ -1,0 +1,11 @@
+server:
+  port: 8099
+spring:
+  application:
+    name: logtest
+#logging:
+#  level:
+#    root: info
+#  file: log.log
+
+
